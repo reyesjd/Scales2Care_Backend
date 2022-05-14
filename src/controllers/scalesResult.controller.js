@@ -31,3 +31,15 @@ export const addScaleResult = async (req, res) => {
     return message(res, error.message, 500);
   }
 }; // add scaleResult
+
+export const getResults = async (req, res) => {
+  try {
+    const scaleResults = await ScaleResult.find({});
+
+    return message(res, "Escalas encontradas", 200, {
+      scaleResults,
+    });
+  } catch (error) {
+    return message(res, error.message, 500);
+  }
+};
