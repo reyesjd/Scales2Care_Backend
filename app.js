@@ -5,7 +5,7 @@ import dotenv from "dotenv"; // import dotenv
 
 import { connect, disconnect } from "./src/configs/db.config.js";
 
-import routes from "./src/routes/main.route.js"; // import user route
+import routes from "./src/routes/main.routes.js"; // import user route
 
 const app = express(); // create express app
 
