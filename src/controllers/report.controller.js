@@ -23,3 +23,14 @@ export const getReportBySphere = async (req, res) => {
     return message(res, error.message, 500);
   }
 };
+
+export const getReportByScale = async (req, res) => {
+  try {
+    const { name } = req.params;
+
+    if (!name) {
+    } else {
+      const results = await scaleResult.find({ scale: name });
+    }
+  } catch (error) {}
+};
