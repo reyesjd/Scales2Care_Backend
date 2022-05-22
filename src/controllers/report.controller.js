@@ -26,11 +26,34 @@ export const getReportBySphere = async (req, res) => {
 
 export const getReportByScale = async (req, res) => {
   try {
-    const { name } = req.params;
+    let names = await scaleResult.distinct("name");
 
-    if (!name) {
-    } else {
-      const results = await scaleResult.find({ scale: name });
+    const results = {};
+
+    for (let i = 0; i < names.length; i++) {
+      const name = names[i];
+      const scaleResults = await scaleResult.find({ name });
+
+      const riskPorcentage = [];
+      const totals = scaleResults.map((scaleResult) => scaleResult.total);
+
+      const min = Math.min(...totals);
+      const max = Math.max(...totals);
+
+      results[name] = {
+        total: scaleResults.length,
+        results: scaleResults,
+      };
     }
-  } catch (error) {}
+
+    return message(
+      res,
+      "Reporte por escala obtenido correctamente.",
+      200,
+      results
+    );
+  } catch (error) {
+    console.log(error);
+    return message(res, error.message, 500);
+  }
 };
