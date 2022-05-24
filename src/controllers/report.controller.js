@@ -57,3 +57,35 @@ export const getReportByScale = async (req, res) => {
     return message(res, error.message, 500);
   }
 };
+
+export const getScaleResultsByUser = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const scaleResults = await scaleResult.aggregate(
+      getScaleResultsByUsersAggregate(id)
+    );
+
+    return message(res, "Escalas obtenidas correctamente.", 200, scaleResults);
+  } catch (error) {
+    console.log(error);
+    return message(res, error.message, 500);
+  }
+};
+
+const getScaleResultsByUsersAggregate = (dni) => {
+  return [
+    {
+      $match: {
+        dni: dni,
+      },
+    },
+    {
+      $lookup: {
+        from: "scaleresesults",
+        localField: "_id",
+        foreignField: "user_id",
+        as: "scaleresesults",
+      },
+    },
+  ];
+};
