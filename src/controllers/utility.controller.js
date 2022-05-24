@@ -23,7 +23,6 @@ export const addError = async (req, res) => {
       id: error._id,
     });
   } catch (error) {
-    console.log(error);
     return message(res, error.message, 500);
   }
 };
@@ -45,7 +44,6 @@ export const addPqr = async (req, res) => {
       id: pqr._id,
     });
   } catch (error) {
-    console.log(error);
     return message(res, error.message, 500);
   }
 };

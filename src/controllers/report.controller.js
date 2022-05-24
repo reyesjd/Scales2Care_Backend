@@ -19,7 +19,6 @@ export const getReportBySphere = async (req, res) => {
       results
     );
   } catch (error) {
-    console.log(error);
     return message(res, error.message, 500);
   }
 };
@@ -53,7 +52,6 @@ export const getReportByScale = async (req, res) => {
       results
     );
   } catch (error) {
-    console.log(error);
     return message(res, error.message, 500);
   }
 };
@@ -67,7 +65,6 @@ export const getScaleResultsByUser = async (req, res) => {
 
     return message(res, "Escalas obtenidas correctamente.", 200, scaleResults);
   } catch (error) {
-    console.log(error);
     return message(res, error.message, 500);
   }
 };

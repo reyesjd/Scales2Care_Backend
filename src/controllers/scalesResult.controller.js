@@ -36,7 +36,6 @@ export const getScaleResultsByUser = async (req, res) => {
   try {
     const { id } = req.params;
     const scaleResults = await ScaleResult.find().populate("user_id");
-    console.log(scaleResults);
     let results = scaleResults.filter((item) => {
       return item.user_id.dni === id;
     });
@@ -51,7 +50,6 @@ export const getScaleResultsByUser = async (req, res) => {
     });
     return message(res, "Escalas obtenidas correctamente.", 200, results);
   } catch (error) {
-    console.log(error);
     return message(res, error.message, 500);
   }
 };

@@ -4,7 +4,6 @@ import message from "../utils/message.js";
 export const getScales = async (req, res) => {
   try {
     const scales = await Scale.find({ state: true });
-    console.log(scales);
     return message(res, "Scales retrieved successfully", 200, scales);
   } catch (error) {
     return message(res, error, 500);
