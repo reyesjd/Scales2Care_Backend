@@ -32,14 +32,26 @@ export const addScaleResult = async (req, res) => {
   }
 }; // add scaleResult
 
-export const getResults = async (req, res) => {
+export const getScaleResultsByUser = async (req, res) => {
   try {
-    const scaleResults = await ScaleResult.find({});
-
-    return message(res, "Escalas encontradas", 200, {
-      scaleResults,
+    const { id } = req.params;
+    const scaleResults = await ScaleResult.find().populate("user_id");
+    console.log(scaleResults);
+    let results = scaleResults.filter((item) => {
+      return item.user_id.dni === id;
     });
+    results = results.map((item) => {
+      return {
+        name: item.name,
+        sphere: item.sphere,
+        total: item.total,
+        age: item.user_id.age,
+        gender: item.user_id.gender,
+      };
+    });
+    return message(res, "Escalas obtenidas correctamente.", 200, results);
   } catch (error) {
+    console.log(error);
     return message(res, error.message, 500);
   }
 };
