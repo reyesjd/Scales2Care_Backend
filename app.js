@@ -2,7 +2,7 @@ import express from "express"; // import express
 import cookieParser from "cookie-parser"; // import cookie-parser
 import logger from "morgan"; // import morgan
 import dotenv from "dotenv"; // import dotenv
-
+import cors from "cors"; // import cors
 import { connect, disconnect } from "./src/configs/db.config.js";
 
 import routes from "./src/routes/main.routes.js"; // import user route
@@ -12,6 +12,7 @@ const app = express(); // create express app
 dotenv.config(); // load env variables
 
 // Middleware
+app.use(cors()); // enable cors
 app.use(logger("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
