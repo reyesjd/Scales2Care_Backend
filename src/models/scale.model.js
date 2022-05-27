@@ -8,12 +8,7 @@ const ScaleSchema = new Schema(
     description: { type: String },
     sphere: {
       type: String,
-      enum: [
-        "Componente Biológico o Clínico",
-        "Componente Psicológico o Mental",
-        "Componente Social",
-        "Componente Triple",
-      ],
+      enum: ["Biológica o Clínica", "Psicológica o Mental", "Social", "Triple"],
     },
     questions: [
       {

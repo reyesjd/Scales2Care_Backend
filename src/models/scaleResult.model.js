@@ -8,7 +8,7 @@ const ScaleResultSchema = new Schema(
     name: { type: String, required: true },
     sphere: {
       type: String,
-      enum: ["BIOLOGICO", "PSICOLOGICO", "SOCIAL"],
+      enum: ["Biológica o Clínica", "Psicológica o Mental", "Social", "Triple"],
     },
     total: { type: Number, required: true },
   },
