@@ -7,7 +7,7 @@ export const addScaleResult = async (req, res) => {
   try {
     const { user_id, name, sphere, total } = req.body;
 
-    if (!user_id || !name || !sphere || !total) {
+    if (!user_id || !name || !sphere || total < 0) {
       return message(res, "Atributos incorrectos.", 400);
     }
 
