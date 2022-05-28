@@ -58,15 +58,19 @@ export const getScaleResultsByUser = async (req, res) => {
 
     const names = groupBy(results, "name");
 
-    const namesChart = Object.keys(names).map((key) => {
+    let namesChart = Object.keys(names).map((key) => {
       return [key, names[key].length];
     });
 
+    namesChart = [["Nombre", "Frecuencia"], ...namesChart];
+
     const spheres = groupBy(results, "sphere");
 
-    const spheresChart = Object.keys(spheres).map((key) => {
+    let spheresChart = Object.keys(spheres).map((key) => {
       return [key, spheres[key].length];
     });
+
+    spheresChart = [["Esfera Biopsicosicial", "Frecuencia"], ...spheresChart];
     return message(res, "Resultados obtenidas correctamente.", 200, {
       data: results,
       names: namesChart,
