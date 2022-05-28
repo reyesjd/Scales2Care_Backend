@@ -33,22 +33,45 @@ export const addScaleResult = async (req, res) => {
   }
 }; // add scaleResult
 
+const groupBy = (objectArray, property) => {
+  return objectArray.reduce((acc, obj) => {
+    const key = obj[property];
+    if (!acc[key]) {
+      acc[key] = [];
+    }
+    // Add object to list for given key's value
+    acc[key].push(obj);
+    return acc;
+  }, {});
+};
+
 export const getScaleResultsByUser = async (req, res) => {
   try {
     const { id } = req.params;
-    const scaleResults = await ScaleResult.find().populate("user_id");
+    const scaleResults = await ScaleResult.find(
+      {},
+      { name: 1, sphere: 1, total: 1, interpretation: 1, user_id: 1, _id: 0 }
+    ).populate("user_id");
     let results = scaleResults.filter((item) => {
       return item.user_id.dni === id;
     });
-    results = results.map((item) => {
-      return {
-        name: item.name,
-        sphere: item.sphere,
-        total: item.total,
-        interpretation: item.interpretation,
-      };
+
+    const names = groupBy(results, "name");
+
+    const namesChart = Object.keys(names).map((key) => {
+      return [key, names[key].length];
     });
-    return message(res, "Escalas obtenidas correctamente.", 200, results);
+
+    const spheres = groupBy(results, "sphere");
+
+    const spheresChart = Object.keys(spheres).map((key) => {
+      return [key, spheres[key].length];
+    });
+    return message(res, "Resultados obtenidas correctamente.", 200, {
+      data: results,
+      names: namesChart,
+      spheres: spheresChart,
+    });
   } catch (error) {
     return message(res, error.message, 500);
   }
