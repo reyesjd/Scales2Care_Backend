@@ -11,6 +11,7 @@ const ScaleResultSchema = new Schema(
       enum: ["Biológica o Clínica", "Psicológica o Mental", "Social", "Triple"],
     },
     total: { type: Number, required: true },
+    interpretation: { type: String, required: true },
   },
   { timestamps: true }
 );

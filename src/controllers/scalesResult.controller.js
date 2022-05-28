@@ -5,9 +5,9 @@ import message from "../utils/message.js";
 
 export const addScaleResult = async (req, res) => {
   try {
-    const { user_id, name, sphere, total } = req.body;
+    const { user_id, name, sphere, total, interpretation } = req.body;
 
-    if (!user_id || !name || !sphere || total < 0) {
+    if (!user_id || !name || !sphere || total < 0 || !interpretation) {
       return message(res, "Atributos incorrectos.", 400);
     }
 
@@ -22,6 +22,7 @@ export const addScaleResult = async (req, res) => {
       name,
       sphere,
       total,
+      interpretation,
     });
 
     return message(res, "Escala añadida con exito!", 200, {
@@ -44,8 +45,7 @@ export const getScaleResultsByUser = async (req, res) => {
         name: item.name,
         sphere: item.sphere,
         total: item.total,
-        age: item.user_id.age,
-        gender: item.user_id.gender,
+        interpretation: item.interpretation,
       };
     });
     return message(res, "Escalas obtenidas correctamente.", 200, results);
